@@ -15,12 +15,19 @@ class DatabaseSeeder extends Seeder
   public function run(): void
   {
     // User::factory(10)->create();
-    \App\Models\Post::factory(10)->create();
+    \App\Models\Post::factory(10)->create(); 
+   
+    // User::factory()->create([
+    //   'name' => 'Admin',
+    //   'email' => 'Admin@example.com',
+    //   'password' => Hash::make('12345678'),
+    // ]);
 
-    User::factory()->create([
-      'name' => 'Admin',
-      'email' => 'Admin@example.com',
-      'password' => Hash::make('12345678'),
-    ]);
+     $this->call([
+            UserSeeder::class,
+            CategorySeeder::class,
+            IdeaSeeder::class,
+            ProjectSeeder::class,
+        ]);
   }
 }
