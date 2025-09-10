@@ -23,34 +23,33 @@ const PostList = () => {
   if (loading)
     return (
       <div className="flex justify-center items-center h-40">
-        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-500 mr-3"></div>
-        <span className="text-lg text-gray-600">Loading posts...</span>
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-accent"></div>
       </div>
     );
   if (error)
     return (
-      <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative max-w-xl mx-auto mt-8">
+      <div className="bg-red-900/50 border border-red-700 text-red-300 px-4 py-3 rounded-lg relative max-w-xl mx-auto mt-8">
         {error}
       </div>
     );
 
   return (
     <div className="max-w-3xl mx-auto">
-      <h2 className="text-2xl font-bold mb-6 text-center text-blue-700">All Posts</h2>
+      <h2 className="text-4xl font-serif font-bold mb-8 text-center">All Posts</h2>
       {posts.length > 0 ? (
-        <ul className="space-y-6">
+        <ul className="space-y-8">
           {posts.map((post) => (
             <li
               key={post.id}
-              className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow border border-gray-100"
+              className="bg-secondary rounded-xl shadow-lg p-8 hover:shadow-2xl transition-shadow duration-300 border border-accent/30"
             >
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">{post.title}</h3>
-              <p className="text-gray-700 leading-relaxed">{post.body}</p>
+              <h3 className="text-2xl font-serif font-bold text-text-primary mb-3">{post.title}</h3>
+              <p className="text-text-secondary leading-relaxed">{post.body}</p>
             </li>
           ))}
         </ul>
       ) : (
-        <p className="text-gray-500 text-center">No posts found.</p>
+        <p className="text-text-secondary text-center">No posts found.</p>
       )}
     </div>
   );
