@@ -1,0 +1,69 @@
+@import "tailwindcss";
+@import 'flowbite';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+    font-family: 'Cairo', sans-serif;
+
+}
+
+
+.bg-contact{
+    background-color: #F6FBFD;
+}
+.active{
+    border-bottom: white 2px solid;
+}
+
+:root {
+    --bg-main: #013366;
+    --main-text:#F6FBFD;
+    --bg-main2:#F6FBFD;
+}
+
+.bg-main2{
+background-color: var(--bg-main2);
+}
+.bg-main{
+    background-color: #013366;
+}
+.bg-hero{
+    background-image: url(../src/assets/images/bghero.jpg);
+    background-size: cover;
+        background-position: center;
+}
+.main-text{
+    color: var(--main-text);
+}
+
+.text-contact{
+color: #013366;
+}
+
+.text-header {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    font-size: 48px;
+    line-height: 150%;
+    letter-spacing: -2%;
+    text-align: right;
+}
+
+.text-subheader {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 150%;
+    letter-spacing: -2%;
+    text-align: right;
+  
+    color: #ffffff;
+}
+
