@@ -10,16 +10,16 @@ return new class extends Migration {
    */
   public function up(): void
   {
-            Schema::create('ideas', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('name');
-            $table->string('field')->nullable();
-            $table->integer('capacity')->nullable();
-            $table->decimal('cost', 10, 2)->nullable();
-            $table->text('description')->nullable();
-            $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade');
-            $table->timestamps();
-        });
+    Schema::create('ideas', function (Blueprint $table) {
+      $table->uuid('id')->primary();
+      $table->string('name');
+      $table->string('field')->nullable();
+      $table->integer('capacity')->nullable();
+      $table->decimal('cost', 10, 2)->nullable();
+      $table->text('description')->nullable();
+      $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade');
+      $table->timestamps();
+    });
   }
 
   /**
