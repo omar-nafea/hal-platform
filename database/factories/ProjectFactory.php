@@ -9,18 +9,19 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ProjectFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
-    {
-        return [
-            'title' => $this->faker->sentence(3),
-            'description' => $this->faker->paragraph(),
-            'field' => $this->faker->word(),
-            'category_id' => \App\Models\Category::inRandomOrder()->first()?->id ?? 1,
-        ];
-    }
+  /**
+   * Define the model's default state.
+   *
+   * @return array<string, mixed>
+   */
+  public function definition(): array
+  {
+    return [
+      'title' => $this->faker->sentence(3),
+      'description' => $this->faker->paragraph(),
+      'field' => $this->faker->word(),
+      //  add existing category id
+      'category_id' => \App\Models\Category::inRandomOrder()->first()->id ?? \App\Models\Category::factory()->create()->id,
+    ];
+  }
 }

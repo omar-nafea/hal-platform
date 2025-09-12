@@ -7,13 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
-    /** @use HasFactory<\Database\Factories\ProjectFactory> */
-    use HasFactory;
-    
-     protected $fillable = [
-        'title',
-        'description',
-        'field' 
-               
-    ];
+  /** @use HasFactory<\Database\Factories\ProjectFactory> */
+  use HasFactory;
+  protected $table = 'projects';
+
+  protected $fillable = [
+    'title',
+    'description',
+    'field'
+  ];
+
+  public function category()
+  {
+    return $this->belongsTo(Category::class);
+  }
+
 }
