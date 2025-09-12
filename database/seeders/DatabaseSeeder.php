@@ -6,6 +6,9 @@ use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Hash;
 use Illuminate\Database\Seeder;
+use App\Models\Category;
+use App\Models\Project;
+use App\Models\Idea;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,7 +17,7 @@ class DatabaseSeeder extends Seeder
    */
   public function run(): void
   {
-    // User::factory(10)->create();
+ 
     \App\Models\Post::factory(10)->create(); 
    
     // User::factory()->create([
@@ -22,12 +25,9 @@ class DatabaseSeeder extends Seeder
     //   'email' => 'Admin@example.com',
     //   'password' => Hash::make('12345678'),
     // ]);
-
-     $this->call([
-            UserSeeder::class,
-            CategorySeeder::class,
-            IdeaSeeder::class,
-            ProjectSeeder::class,
-        ]);
+        User::factory(10)->create();
+        Category::factory(5)->create();
+        Project::factory(10)->create();
+        Idea::factory(5)->create();
   }
 }
