@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: hal-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: hal_db
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    volumes:
+      - hal-mysql-data:/var/lib/mysql
+    networks:
+      - hal-network
+    ports:
+      - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: hal-phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+    networks:
+      - hal-network
+    depends_on:
+      - db
+
+networks:
+  hal-network:
+    driver: bridge
+
+volumes:
+  hal-mysql-data:
