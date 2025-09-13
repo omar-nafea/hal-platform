@@ -5,6 +5,7 @@ import Services from "./components/Services/Services";
 import ShowIdea from "./components/ShowIdea/ShowIdea";
 import Works from "./components/Works/Works";
 import NotFound from "./components/NotFound/NotFound";
+import "@fontsource-variable/cairo"; // Defaults to wght axis
 import "./index.css";
 import {
   Outlet,
