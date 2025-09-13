@@ -64,7 +64,7 @@ const DesktopHero = () => {
 
       {/* Main Content */}
       <main className="relative z-10 flex-grow flex items-center w-full">
-        <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 items-center px-4 sm:px-8">
+        <div className="xl:container mx-auto grid grid-cols-1 lg:grid-cols-2 items-center px-4 sm:px-8">
           <div className="flex flex-col items-start">
             <h1 className="text-4xl sm:text-5xl lg:text-7xl leading-8 font-extrabold lg:leading-relaxed">
               نُطوِّر أعمالك بحلول ذكاء
@@ -78,11 +78,11 @@ const DesktopHero = () => {
               <ActionButton text="ابدء رحلتك الان!" />
             </div>
           </div>
-          <div className="lg:absolute left-20 top-1/4">
+          <div className="xl:absolute left-0 top-1/4">
             <img
               src={'./src/assets/images/img-hero.png'}
               alt="AI Robotic Hand"
-              className="w-full max-w-2xl h-auto transform -scale-x-150 scale-y-150"
+              className="w-full max-w-2xl h-auto transform 2xl:-scale-x-150  2xl:scale-y-150 scale-y-100 -scale-x-100"
             />
           </div>
         </div>
@@ -144,7 +144,7 @@ const MobileHero = () => {
             <img
               src={'./src/assets/images/img-hero.png'}
               alt="AI Robotic Hand"
-              className="w-full max-w-sm h-auto transform xl:-scale-x-100"
+              className="w-full max-w-sm h-auto transform -scale-x-100"
             />
           </div>
         </div>
