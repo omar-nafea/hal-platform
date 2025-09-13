@@ -10,7 +10,204 @@
 ---
 
 ## 🔗 **Authentication**
-Currently, the API does not require authentication. All endpoints are publicly accessible.
+The API now uses token-based authentication via Laravel Sanctum. Most endpoints are protected and require a valid Bearer token in the `Authorization` header. A few endpoints remain public (registration and login).
+
+Summary:
+- Public endpoints: `POST /api/v1/register`, `POST /api/v1/login`, `GET /api/v1/health`.
+- Protected endpoints: all other `/api/v1/*` routes (categories, projects, ideas, users, posts, dashboard statistics, etc.).
+
+How authentication works:
+- When a user registers or logs in, the API returns a personal access token.
+- Use the token exactly as returned in the `Authorization` header: `Authorization: Bearer {token}`.
+- Tokens issued by Sanctum are typically in the form `1|<long-string>` (include the full string when calling the API).
+
+Endpoints (quick reference):
+
+- Register
+    - POST /api/v1/register
+    - Body: { name, email, password, password_confirmation }
+    - Response: { user, token }
+
+- Login
+    - POST /api/v1/login
+    - Body: { email, password }
+    - Response: { user, token }
+
+- Logout (current token)
+    - POST /api/v1/logout
+    - Protected (requires Authorization header)
+
+- Logout all sessions (revoke all tokens)
+    - POST /api/v1/logout-all
+    - Protected
+
+- Refresh token
+    - POST /api/v1/refresh-token
+    - Protected (returns a new token)
+
+- Profile
+    - GET /api/v1/profile (protected)
+    - PUT /api/v1/profile (protected)
+
+- Change password
+    - PUT /api/v1/change-password (protected)
+
+- Sessions
+    - GET /api/v1/sessions (list active tokens) (protected)
+    - DELETE /api/v1/sessions/{tokenId} (revoke specific token) (protected)
+
+Example successful registration response
+
+```json
+{
+    "success": true,
+    "data": {
+        "user": {
+            "id": "0199415e-7f4c-7158-9652-087e59d884fd",
+            "name": "Test User",
+            "email": "test@example.com"
+        },
+        "token": "1|duNVR4VBrr4cZTAsfo8XqBxgKH3jzyfswC67P9T87f6c96ed",
+        "token_type": "Bearer"
+    },
+    "message": "User registered successfully"
+}
+```
+
+---
+
+## 🧭 Calling the API from Postman (step-by-step)
+
+1. Create an environment (optional)
+     - `base_url` = `http://localhost:8000` (or the host/port your app runs on)
+
+2. Register a user (public)
+     - Method: POST
+     - URL: `{{base_url}}/api/v1/register`
+     - Body → raw → JSON:
+         ```json
+         {
+             "name": "Your Name",
+             "email": "you@example.com",
+             "password": "password123",
+             "password_confirmation": "password123"
+         }
+         ```
+     - Send the request. You will receive a `token` in the response JSON.
+
+3. Save token to environment (manual or test script)
+     - Manual: copy `data.token` value and set an environment variable `auth_token`.
+     - Automated (Postman test script) example (Tests tab):
+         ```javascript
+         var json = pm.response.json();
+         if (json && json.data && json.data.token) {
+                 pm.environment.set('auth_token', json.data.token);
+         }
+         ```
+
+4. Use the token for protected requests
+     - Add Authorization header to your requests:
+         - Key: `Authorization`
+         - Value: `Bearer {{auth_token}}`
+     - Or use the Authorization tab → Bearer Token and paste `{{auth_token}}`.
+
+5. Example: Get profile (protected)
+     - Method: GET
+     - URL: `{{base_url}}/api/v1/profile`
+     - Add Authorization header (Bearer token)
+
+Notes and best practices:
+- Use a secure environment variable in Postman for `auth_token`.
+- When testing multiple users, create separate environments or variables (e.g., `auth_token_user1`).
+- Use the Sessions endpoints to inspect and revoke tokens when needed.
+
+---
+
+## 🖥️ Calling the API from the terminal (curl examples)
+
+Replace `http://localhost:8000` with your base URL and `{TOKEN}` with the returned token.
+
+1) Register (create user)
+
+```bash
+curl -s -X POST http://localhost:8000/api/v1/register \
+    -H "Content-Type: application/json" \
+    -d '{"name":"Test User","email":"test@example.com","password":"password123","password_confirmation":"password123"}'
+```
+
+2) Login and extract token (bash + jq)
+
+```bash
+RESPONSE=$(curl -s -X POST http://localhost:8000/api/v1/login \
+    -H "Content-Type: application/json" \
+    -d '{"email":"test@example.com","password":"password123"}')
+TOKEN=$(echo "$RESPONSE" | jq -r '.data.token')
+echo "Token: $TOKEN"
+```
+
+3) Call protected endpoint (profile) with token
+
+```bash
+curl -s -X GET http://localhost:8000/api/v1/profile \
+    -H "Authorization: Bearer $TOKEN"
+```
+
+4) Call another protected endpoint (categories) with token
+
+```bash
+curl -s -X GET http://localhost:8000/api/v1/categories \
+    -H "Authorization: Bearer $TOKEN" | jq
+```
+
+5) Logout (revoke the current token)
+
+```bash
+curl -s -X POST http://localhost:8000/api/v1/logout \
+    -H "Authorization: Bearer $TOKEN"
+```
+
+6) Logout all sessions (revoke all tokens for the authenticated user)
+
+```bash
+curl -s -X POST http://localhost:8000/api/v1/logout-all \
+    -H "Authorization: Bearer $TOKEN"
+```
+
+7) List active sessions (tokens)
+
+```bash
+curl -s -X GET http://localhost:8000/api/v1/sessions \
+    -H "Authorization: Bearer $TOKEN" | jq
+```
+
+The sessions response contains token entries with an `id` you can use to revoke a specific session.
+
+8) Revoke a specific token (replace {tokenId} with the session id from `/sessions`)
+
+```bash
+curl -s -X DELETE http://localhost:8000/api/v1/sessions/{tokenId} \
+    -H "Authorization: Bearer $TOKEN"
+```
+
+9) Refresh token
+
+```bash
+curl -s -X POST http://localhost:8000/api/v1/refresh-token \
+    -H "Authorization: Bearer $TOKEN"
+```
+
+---
+
+## ⚙️ Notes for frontend integration (React)
+
+- After login/register, store the returned token securely on the client (in memory, or secure storage). For SPAs you may store it in memory or a short-lived storage; avoid localStorage for long-lived tokens unless you understand the XSS risks.
+- For requests from the browser (axios/fetch), include the header:
+
+    ```js
+    headers: { Authorization: `Bearer ${token}` }
+    ```
+
+- If your React app uses an API proxy or different host/port, ensure CORS and Sanctum configuration are adjusted accordingly.
 
 ---
 

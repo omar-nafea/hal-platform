@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\ProjectController;
 use App\Http\Controllers\Api\V1\IdeaController;
 use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\PostController;
+use App\Http\Controllers\Api\V1\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,37 +22,63 @@ use App\Http\Controllers\Api\V1\PostController;
 // API Version 1 Routes
 Route::prefix('v1')->group(function () {
 
-  // Category Routes
-  Route::apiResource('categories', CategoryController::class);
-  Route::get('categories/{id}/projects', [CategoryController::class, 'withProjectCounts']);
+  // Authentication Routes (Public)
+  Route::post('register', [AuthController::class, 'register']);
+  Route::post('login', [AuthController::class, 'login']);
 
-  // Project Routes
-  Route::apiResource('projects', ProjectController::class);
-  Route::get('projects/category/{categoryId}', [ProjectController::class, 'byCategory']);
-  Route::get('projects/field/{field}', [ProjectController::class, 'byField']);
-  Route::get('projects/featured', [ProjectController::class, 'featured']);
-  Route::get('projects/statistics', [ProjectController::class, 'statistics']);
+  // Protected Authentication Routes
+  Route::middleware('auth:sanctum')->group(function () {
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('logout-all', [AuthController::class, 'logoutAll']);
+    Route::get('profile', [AuthController::class, 'profile']);
+    Route::put('profile', [AuthController::class, 'updateProfile']);
+    Route::put('change-password', [AuthController::class, 'changePassword']);
+    Route::post('refresh-token', [AuthController::class, 'refreshToken']);
+    Route::get('sessions', [AuthController::class, 'sessions']);
+    Route::delete('sessions/{tokenId}', [AuthController::class, 'revokeToken']);
+  });
 
-  // Idea Routes
-  Route::apiResource('ideas', IdeaController::class);
-  Route::get('ideas/field/{field}', [IdeaController::class, 'byField']);
-  Route::get('ideas/user/{userId}', [IdeaController::class, 'byUser']);
-  Route::get('ideas/statistics', [IdeaController::class, 'statistics']);
+  // Category Routes (Protected)
+  Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('categories', CategoryController::class);
+    Route::get('categories/{id}/projects', [CategoryController::class, 'withProjectCounts']);
+  });
 
-  // User Routes
-  Route::apiResource('users', UserController::class);
-  Route::put('users/{id}/password', [UserController::class, 'updatePassword']);
-  Route::get('users/{id}/profile', [UserController::class, 'profile']);
-  Route::get('users/statistics', [UserController::class, 'statistics']);
+  // Project Routes (Protected)
+  Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('projects', ProjectController::class);
+    Route::get('projects/category/{categoryId}', [ProjectController::class, 'byCategory']);
+    Route::get('projects/field/{field}', [ProjectController::class, 'byField']);
+    Route::get('projects/featured', [ProjectController::class, 'featured']);
+    Route::get('projects/statistics', [ProjectController::class, 'statistics']);
+  });
 
-  // Post Routes
-  Route::apiResource('posts', PostController::class);
-  Route::get('posts/latest', [PostController::class, 'latest']);
-  Route::get('posts/search', [PostController::class, 'search']);
-  Route::get('posts/statistics', [PostController::class, 'statistics']);
+  // Idea Routes (Protected)
+  Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('ideas', IdeaController::class);
+    Route::get('ideas/field/{field}', [IdeaController::class, 'byField']);
+    Route::get('ideas/user/{userId}', [IdeaController::class, 'byUser']);
+    Route::get('ideas/statistics', [IdeaController::class, 'statistics']);
+  });
 
-  // General Statistics Route
-  Route::get('dashboard/statistics', function () {
+  // User Routes (Protected)
+  Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('users', UserController::class);
+    Route::put('users/{id}/password', [UserController::class, 'updatePassword']);
+    Route::get('users/{id}/profile', [UserController::class, 'profile']);
+    Route::get('users/statistics', [UserController::class, 'statistics']);
+  });
+
+  // Post Routes (Protected)
+  Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('posts', PostController::class);
+    Route::get('posts/latest', [PostController::class, 'latest']);
+    Route::get('posts/search', [PostController::class, 'search']);
+    Route::get('posts/statistics', [PostController::class, 'statistics']);
+  });
+
+  // General Statistics Route (Protected)
+  Route::middleware('auth:sanctum')->get('dashboard/statistics', function () {
     return response()->json([
       'success' => true,
       'data' => [
@@ -71,7 +98,7 @@ Route::prefix('v1')->group(function () {
     ]);
   });
 
-  // Health Check Route
+  // Health Check Route (Public)
   Route::get('health', function () {
     return response()->json([
       'success' => true,
