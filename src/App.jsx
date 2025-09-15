@@ -5,13 +5,11 @@ import Services from "./components/Services/Services";
 import ShowIdea from "./components/ShowIdea/ShowIdea";
 import Works from "./components/Works/Works";
 import NotFound from "./components/NotFound/NotFound";
+import "@fontsource-variable/cairo"; // Defaults to wght axis
+
 import "./index.css";
-import {
-  Outlet,
-  NavLink,
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Contact from "./components/Contact/Contact";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +21,7 @@ const router = createBrowserRouter([
       { path: "services", element: <Services /> },
       { path: "showIdea", element: <ShowIdea /> },
       { path: "works", element: <Works /> },
+      { path: "contact", element: <Contact /> },
       { path: "*", element: <NotFound /> },
     ],
   },

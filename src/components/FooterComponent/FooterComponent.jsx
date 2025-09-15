@@ -1,59 +1,59 @@
-import React, { useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import React from "react";
 
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-
+export default function FooterComponent() {
   return (
-    <div
-      style={{
-        backgroundImage: `url(./src/assets/images/bghero.jpg)`,
-        fontStyle: "bold",
-        fontFamily:
-          "Cairo, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial",
-      }}
-    >
-      <nav className=" bg-transparent  ">
-        <div className=" flex container mx-auto  justify-around items-center p-5 main-text ">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-white text-2xl"
-          >
-            <i className="fa-solid fa-bars"></i>
-          </button>
-          <ul
-            className={`flex-col md:flex-row md:flex gap-6 absolute md:static top-16 right-0 bg-[var(--bg-main)] md:bg-transparent w-full md:w-auto p-5 md:p-0 transition-all duration-300 ${
-              isOpen ? "flex" : "hidden"
-            }`}
-          >
-            <li>
-              <Link to="/contact">
-                <div className="bg-contact rounded-3xl p-2 mr-24 flex items-center ">
-                  <span className="w-8 h-8 flex items-center justify-center bg-[var(--bg-main)] rounded-full main-text">
-                    <i className="fa-solid fa-arrow-left"></i>
-                  </span>
-                  <span className="ml-2 text-contact">تواصل معنا</span>
-                </div>
-              </Link>
-            </li>
-            <li>
-              <NavLink to="/showIdea">اعرض فكرتك</NavLink>
-            </li>
-            <li>
-              <NavLink to="/works">أعمالنا </NavLink>
-            </li>
-            <li>
-              <NavLink to="/services">خدماتنا</NavLink>
-            </li>
-            <li>
-              <NavLink to="/about">من نحن</NavLink>
-            </li>
-            <li>
-              <NavLink to="/">الرئيسية</NavLink>
-            </li>
-          </ul>
-          <Link to="/">
+    <footer className="bg-[#011F41] text-white">
+      <div className="max-w-6xl mx-auto px-4 py-10 text-right">
+        <div className="flex flex-col md:flex-row md:justify-between gap-10">
+          <div className="grid gap-8 sm:grid-cols-3 sm:gap-6 flex-1">
+            <div className="flex flex-col items-end">
+              <h3 className="mb-4 font-bold text-lg">تواصل معنا</h3>
+              <ul className="space-y-2 text-sm">
+                <li>حل 65 جميل @.كوم</li>
+                <li>(02) 111-509-086</li>
+                <li>
+                  شركة، برج ريجال، الخليج التجاري، دبي، الإمارات العربية المتحدة
+                </li>
+              </ul>
+            </div>
+
+            <div className="flex flex-col items-end">
+              <h3 className="mb-4 font-bold text-lg">خدماتنا</h3>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a href="#">الذكاء الاصطناعى</a>
+                </li>
+                <li>
+                  <a href="#">تطوير البرمجيات</a>
+                </li>
+                <li>
+                  <a href="#">معالجة اللغات</a>
+                </li>
+                <li>
+                  <a href="#">التحويل الرقمى</a>
+                </li>
+              </ul>
+            </div>
+
+            <div className="flex flex-col items-end">
+              <h3 className="mb-4 font-bold text-lg">روابط مهمة</h3>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a href="#">الرئيسية</a>
+                </li>
+                <li>
+                  <a href="#">اعمالنا</a>
+                </li>
+                <li>
+                  <a href="#">تواصل معنا</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="w-full md:w-[30%] text-right">
             <svg
+              className="mb-4 ml-auto"
               width="36"
               height="60"
               viewBox="0 0 36 60"
@@ -77,10 +77,24 @@ export default function Navbar() {
                 fill="#022345"
               />
             </svg>
-          </Link>
+
+            <p className="text-sm leading-6">
+              نحن شركة تقنية متخصصة في تطوير حلول ذكاء اصطناعي وتقنيات مبتكرة
+              تساعد الشركات على الأتمتة والنمو في عالم رقمي سريع التغير. نعمل مع
+              فريق خبراء لتقديم حلول مخصصة تضمن لك التميز والمنافسة.
+            </p>
+          </div>
         </div>
-        <div></div>
-      </nav>
-    </div>
+
+        <div className="w-full mt-8 flex justify-center md:justify-end gap-3">
+          <div className="w-8 h-8 rounded-full bg-white text-[#011F41] flex items-center justify-center">
+            <i className="fa-brands fa-facebook-f"></i>
+          </div>
+          <div className="w-8 h-8 rounded-full bg-white text-[#011F41] flex items-center justify-center">
+            <i className="fa-brands fa-twitter"></i>
+          </div>
+        </div>
+      </div>
+    </footer>
   );
 }
