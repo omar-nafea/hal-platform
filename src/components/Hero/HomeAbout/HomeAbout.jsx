@@ -8,9 +8,9 @@ import bgImg2 from "../../../assets/images/bg-img2.png";
 export default function HomeAbout() {
   return (
     <div className="py-20 relative">
-      <div className="container mx-auto">
-        <div className="grid grid-cols-12 gap-5 p-5">
-          <div className="content col-span-12 lg:col-span-7 ">
+      <div className="container mx-auto ">
+        <div className="grid grid-cols-12 gap-5 p-5 ">
+          <div className="content col-span-12 lg:col-span-4 lg:col-start-3">
             <div className="flex flex-col items-center justify-center lg:items-end">
               <div className="">
                 <span className="block text-lg font-semibold mb-4 text-main">
@@ -38,7 +38,7 @@ export default function HomeAbout() {
               </div>
             </div>
           </div>
-          <div className="relative col-span-12 lg:col-span-5 flex justify-center">
+          <div className="relative col-span-12 lg:col-span-5 flex justify-center ">
             <img src={aboutImg} alt="aboutImg" className=" relative z-20" />
 
             <img

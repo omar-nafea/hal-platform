@@ -10,6 +10,7 @@ import "@fontsource-variable/cairo"; // Defaults to wght axis
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Contact from "./components/Contact/Contact";
+import ProjectDetails from "./components/Works/ProjectDetails/ProjectDetails";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
       { path: "showIdea", element: <ShowIdea /> },
       { path: "works", element: <Works /> },
       { path: "contact", element: <Contact /> },
+      { path: "projectDetails", element: <ProjectDetails /> },
       { path: "*", element: <NotFound /> },
     ],
   },

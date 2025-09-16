@@ -7,8 +7,10 @@ import FooterComponent from "../FooterComponent/FooterComponent";
 export default function Layout() {
   return (
     <div>
-      <Navbar/>
-      <Outlet />
+      <Navbar />
+      <div className="mt-[100px]">
+        <Outlet />
+      </div>
       <FooterComponent />
     </div>
   );
