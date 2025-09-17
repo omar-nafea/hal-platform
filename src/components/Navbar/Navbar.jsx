@@ -28,7 +28,7 @@ export default function Navbar() {
             }`}
           >
             <li>
-              <Link to="/login">
+              <Link to="/register">
                 <div className="bg-contact rounded-3xl p-2 mr-24 flex items-center justify-center w-full md:w-fit">
                   <span className="w-8 h-8 flex items-center justify-center bg-[var(--bg-main)] rounded-full main-text">
                     <i className="fa-solid fa-arrow-left"></i>
