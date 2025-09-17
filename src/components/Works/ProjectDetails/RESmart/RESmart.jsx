@@ -1,9 +1,10 @@
 import React from "react";
 import project from "../../../../assets/images/projectDetails.png";
+import topDots from "../../../../assets/images/details-top.png"
 export default function RESmart() {
   return (
-    <section>
-      <div className="container mx-auto bg-[#F6FBFD]">
+    <section className="relative">
+      <div className="container mx-auto bg-[#F6FBFD] ">
         <div className="flex flex-col justify-center items-center gap-8">
           <div className="title">
             <h2 className="text-3xl font-bold">منصة إدارة العقارات الذكية</h2>
@@ -33,6 +34,9 @@ export default function RESmart() {
           </div>
         </div>
       </div>
+         <div className="dots absolute top-0 right-0 w-dvh">
+                <img src={topDots} alt="project details dots" className="w-full" />
+              </div>
     </section>
   );
 }
