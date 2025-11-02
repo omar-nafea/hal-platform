@@ -18,54 +18,60 @@ body {
     "Helvetica Neue", Arial, sans-serif;
 }
 
-/* helper class for mirrored image if needed */
-.mirror-y {
-  transform: scaleX(-1);
-}
-
-.btn {
-  @apply bg-[#013366] text-white rounded-3xl px-4 py-2 flex items-center justify-between  cursor-pointer hover:scale-105 transition duration-300;
-}
-
-.swiper-pagination {
-  position: relative !important;
-  margin-top: 20px;
-}
-.swiper-pagination-bullet {
-  width: 15px !important;
-}
-.bg-contact {
-  background-color: #f6fbfd;
-}
-.active {
-  border-bottom: white 2px solid;
-}
-
+/* ============================= */
+/* 🎨 Upseeds Color System */
+/* ============================= */
 :root {
-  --bg-main: #013366;
-  --main-text: #f6fbfd;
-  --bg-main2: #f6fbfd;
+  --primary-color: #491C86;   /* Upseeds Purple */
+  --accent-color: #00B3A4;    /* Upseeds Teal */
+  --background-color: #ffffff; /* White */
+  --text-color: #1A1A1A;      /* Neutral dark text */
+  --light-bg: #f6fbfd;        /* Light section background */
+}
+
+/* ============================= */
+/* Utility Colors */
+/* ============================= */
+.bg-main {
+  background-color: var(--primary-color);
 }
 
 .bg-main2 {
-  background-color: var(--bg-main2);
+  background-color: var(--background-color);
 }
-.bg-main {
-  background-color: #013366;
+
+.bg-contact {
+  background-color: var(--light-bg);
 }
-.bg-hero {
-  background-image: url(../src/assets/images/bghero.jpg);
-  background-size: cover;
-  background-position: center;
-}
+
 .main-text {
-  color: var(--main-text);
+  color: var(--text-color);
 }
 
 .text-contact {
-  color: #013366;
+  color: var(--primary-color);
 }
 
+.active {
+  border-bottom: var(--background-color) 2px solid;
+}
+
+/* ============================= */
+/* Buttons */
+/* ============================= */
+.btn {
+  @apply bg-[var(--primary-color)] text-white rounded-3xl px-4 py-2 flex items-center justify-between cursor-pointer hover:scale-105 transition duration-300;
+}
+
+.btn:hover {
+  background-color: var(--accent-color);
+}
+
+
+
+/* ============================= */
+/* Typography */
+/* ============================= */
 .text-header {
   font-family: "Cairo", sans-serif;
   font-weight: 800;
@@ -73,6 +79,7 @@ body {
   line-height: 150%;
   letter-spacing: -2%;
   text-align: right;
+  color: var(--primary-color);
 }
 
 .text-subheader {
@@ -82,36 +89,53 @@ body {
   line-height: 150%;
   letter-spacing: -2%;
   text-align: right;
-
-  color: #ffffff;
+  color: var(--accent-color);
 }
 
-/* Hero Section Responsive Styles */
-/* Mobile First - Base styles for mobile */
+/* ============================= */
+/* Helper Class */
+/* ============================= */
+.mirror-y {
+  transform: scaleX(-1);
+}
+
+/* ============================= */
+/* Swiper Pagination */
+/* ============================= */
+.swiper-pagination {
+  position: relative !important;
+  margin-top: 20px;
+}
+
+.swiper-pagination-bullet {
+  width: 15px !important;
+}
+
+/* ============================= */
+/* Responsive Hero Section */
+/* ============================= */
+
+/* Mobile First */
 @media (max-width: 640px) {
-  /* Hide desktop navigation and show mobile menu */
   .hero-nav .flex.items-center.gap-14 {
     display: none !important;
   }
 
-  /* Mobile navigation button */
   .mobile-nav-btn {
     display: block;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(73, 28, 134, 0.2); /* subtle purple tint */
     border: none;
     padding: 8px;
     border-radius: 8px;
-    color: white;
+    color: var(--primary-color);
   }
 
-  /* Hero container mobile layout */
   .hero-main-container {
     padding: 0 16px !important;
     grid-template-columns: 1fr !important;
     gap: 2rem !important;
   }
 
-  /* Hero text content mobile */
   .hero-text-content {
     text-align: center !important;
     order: 2;
@@ -119,19 +143,20 @@ body {
   }
 
   .hero-text-content h1 {
-    font-size: 2rem !important; /* 32px */
+    font-size: 2rem !important;
     line-height: 1.2 !important;
     margin-bottom: 1rem;
+    color: var(--primary-color);
   }
 
   .hero-text-content p {
-    font-size: 1rem !important; /* 16px */
+    font-size: 1rem !important;
     line-height: 1.5 !important;
     margin-top: 1rem !important;
     margin-bottom: 1.5rem !important;
+    color: var(--accent-color);
   }
 
-  /* Hero image container mobile */
   .hero-image-container {
     position: relative !important;
     left: auto !important;
@@ -148,7 +173,6 @@ body {
     transform: scale(1) !important;
   }
 
-  /* Mobile buttons */
   .hero-btn {
     padding: 12px 20px !important;
     font-size: 1rem !important;
@@ -159,7 +183,6 @@ body {
     font-size: 1rem !important;
   }
 
-  /* Header mobile */
   .hero-header {
     padding: 1rem !important;
   }
@@ -174,7 +197,7 @@ body {
   }
 }
 
-/* Tablet styles */
+/* Tablet Styles */
 @media (min-width: 641px) and (max-width: 1024px) {
   .hero-nav .flex.items-center.gap-14 {
     gap: 2rem !important;
@@ -190,36 +213,35 @@ body {
   }
 
   .hero-text-content h1 {
-    font-size: 3rem !important; /* 48px */
+    font-size: 3rem !important;
     line-height: 1.1 !important;
+    color: var(--primary-color);
   }
 
   .hero-text-content p {
-    font-size: 1.125rem !important; /* 18px */
+    font-size: 1.125rem !important;
     line-height: 1.4 !important;
+    color: var(--accent-color);
   }
 
   .hero-image-container {
     left: 10px !important;
     top: 20% !important;
   }
-
-  
-
 }
 
+/* Large Screen (2K+) */
 @media (min-width: 1536px) {
-    .Robotic {
-
-
+  .Robotic {
     max-width: 600px !important;
-   transform: translateX(-50px) scale(1.5) !important;
+    transform: translateX(-50px) scale(1.5) !important;
   }
-
 }
 
-
-
+/* ============================= */
+/* Footer */
+/* ============================= */
 footer {
-  background-color: #012042;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }

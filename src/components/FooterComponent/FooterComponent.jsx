@@ -2,14 +2,19 @@ import React from "react";
 
 export default function FooterComponent() {
   return (
-    <footer className="bg-[#011F41] text-white ">
-      <div className="max-w-6xl mx-auto px-4 py-10 text-right">
-        <div className="flex flex-col md:flex-row md:justify-between gap-10">
-          <div className="grid gap-8 sm:grid-cols-3 sm:gap-6 flex-1">
+    <footer className="bg-[#491C86] text-white">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 py-14 text-right font-[Cairo]">
+        {/* Top Section */}
+        <div className="flex flex-col md:flex-row md:justify-between gap-12 border-b border-[#EBDDF8]/20 pb-12">
+          {/* Info Columns */}
+          <div className="grid gap-10 sm:grid-cols-3 flex-1">
+            {/* Contact */}
             <div className="flex flex-col items-end">
-              <h3 className="mb-4 font-bold text-lg">تواصل معنا</h3>
-              <ul className="space-y-2 text-sm">
-                <li>حل 65 جميل @.كوم</li>
+              <h3 className="mb-4 font-semibold text-lg text-[#EBDDF8]">
+                تواصل معنا
+              </h3>
+              <ul className="space-y-2 text-sm text-gray-100">
+                <li>hello@upseeds.com</li>
                 <li>(02) 111-509-086</li>
                 <li>
                   شركة، برج ريجال، الخليج التجاري، دبي، الإمارات العربية المتحدة
@@ -17,82 +22,91 @@ export default function FooterComponent() {
               </ul>
             </div>
 
+            {/* Services */}
             <div className="flex flex-col items-end">
-              <h3 className="mb-4 font-bold text-lg">خدماتنا</h3>
+              <h3 className="mb-4 font-semibold text-lg text-[#EBDDF8]">
+                خدماتنا
+              </h3>
               <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="#">الذكاء الاصطناعى</a>
-                </li>
-                <li>
-                  <a href="#">تطوير البرمجيات</a>
-                </li>
-                <li>
-                  <a href="#">معالجة اللغات</a>
-                </li>
-                <li>
-                  <a href="#">التحويل الرقمى</a>
-                </li>
+                {[
+                  "الذكاء الاصطناعى",
+                  "تطوير البرمجيات",
+                  "معالجة اللغات",
+                  "التحويل الرقمى",
+                ].map((service, i) => (
+                  <li key={i}>
+                    <a
+                      href="#"
+                      className="hover:text-[#EBDDF8] transition-colors duration-200"
+                    >
+                      {service}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
 
+            {/* Links */}
             <div className="flex flex-col items-end">
-              <h3 className="mb-4 font-bold text-lg">روابط مهمة</h3>
+              <h3 className="mb-4 font-semibold text-lg text-[#EBDDF8]">
+                روابط مهمة
+              </h3>
               <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="#">الرئيسية</a>
-                </li>
-                <li>
-                  <a href="#">اعمالنا</a>
-                </li>
-                <li>
-                  <a href="#">تواصل معنا</a>
-                </li>
+                {["الرئيسية", "اعمالنا", "تواصل معنا"].map((link, i) => (
+                  <li key={i}>
+                    <a
+                      href="#"
+                      className="hover:text-[#EBDDF8] transition-colors duration-200"
+                    >
+                      {link}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
 
-          <div className="w-full md:w-[30%] text-right">
-            <svg
-              className="mb-4 ml-auto"
-              width="36"
-              height="60"
-              viewBox="0 0 36 60"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M22.3359 33.6144C22.3359 37.5136 22.3359 41.3351 22.3359 45.2966C22.2129 45.0942 22.141 45.0072 22.1032 44.9088C21.0286 42.1694 19.1708 40.1376 16.5563 38.8114C16.0757 38.5673 15.8979 38.31 15.8998 37.7633C15.9206 31.0359 15.913 24.3084 15.9149 17.581C15.9149 17.3956 15.9149 17.2102 15.9149 16.9586C14.9236 16.9586 13.9644 16.9586 12.9863 16.9586C12.9863 15.9143 12.9863 14.9362 12.9863 13.9013C13.9398 13.9013 14.8971 13.9013 15.8846 13.9013C15.8846 12.8854 15.8846 11.9281 15.8846 10.9179C14.9217 10.9179 13.9777 10.9179 12.9977 10.9179C12.9977 9.86223 12.9977 8.85955 12.9977 7.81146C13.9455 7.81146 14.8914 7.81146 15.8865 7.81146C15.8979 7.60903 15.9149 7.44633 15.9149 7.28174C15.9168 6.12582 15.9036 4.97179 15.9301 3.81587C15.9338 3.62668 16.0738 3.35615 16.2327 3.26723C18.1454 2.19644 20.0732 1.15025 21.9972 0.10216C22.0729 0.0605395 22.1656 0.0454045 22.3094 0C22.3094 2.60887 22.3094 5.17233 22.3094 7.78119C26.8801 7.78119 31.3997 7.78119 35.9553 7.78119C35.9553 8.82928 35.9553 9.83196 35.9553 10.8933C31.4205 10.8933 26.9047 10.8933 22.3586 10.8933C22.3586 11.9092 22.3586 12.8684 22.3586 13.8578C22.7767 13.8578 23.1872 13.8578 23.6318 13.8578C23.6318 13.0973 23.6318 12.3538 23.6318 11.5725C24.8256 11.5725 25.9871 11.5725 27.2055 11.5725C27.2055 12.3122 27.2055 13.067 27.2055 13.854C27.4987 13.854 27.7371 13.854 28.0133 13.854C28.0133 13.0973 28.0133 12.3519 28.0133 11.5706C29.2128 11.5706 30.3744 11.5706 31.587 11.5706C31.587 12.3103 31.587 13.067 31.587 13.854C31.8424 13.854 32.0486 13.854 32.2984 13.854C32.2984 13.0935 32.2984 12.35 32.2984 11.5706C33.5338 11.5706 34.7256 11.5706 35.9534 11.5706C35.9534 13.3338 35.9534 15.1046 35.9534 16.9283C31.43 16.9283 26.9123 16.9283 22.3605 16.9283C22.3605 20.3772 22.3605 23.773 22.3605 27.203C25.3931 27.203 28.4276 27.203 31.4887 27.203C31.4887 26.7111 31.4887 26.2343 31.4887 25.6989C28.893 25.6989 26.2974 25.6989 23.6753 25.6989C23.6621 25.5079 23.6431 25.3735 23.6431 25.2373C23.6412 23.6614 23.6602 22.0836 23.6318 20.5077C23.6242 20.0536 23.7831 19.9647 24.1975 19.9666C27.2093 19.9818 30.223 19.9723 33.2348 19.9761C34.8921 19.978 35.9856 21.0677 35.9875 22.7249C35.9913 26.1738 35.9799 29.6245 35.9988 33.0734C36.0007 33.5123 35.8664 33.622 35.4445 33.622C31.2919 33.6088 27.1412 33.6144 22.9886 33.6144C22.7861 33.6144 22.5856 33.6144 22.3359 33.6144Z"
-                fill="white"
-              />
-              <path
-                d="M11.3333 59.9976C5.49887 60.0884 0.398438 55.2547 0.398438 49.1024C0.398438 43.0957 5.23969 38.0104 11.6266 38.1656C17.514 38.3075 22.2796 42.9387 22.2985 49.091C22.3174 55.3474 17.1811 60.0846 11.3333 59.9976ZM11.3428 45.8938C9.60041 45.8049 8.06801 47.2559 8.1172 49.1251C8.17017 51.068 9.49446 52.3166 11.3447 52.3337C13.1722 52.3507 14.5419 50.9885 14.5779 49.1213C14.6138 47.237 13.0095 45.7765 11.3428 45.8938Z"
-                fill="white"
-              />
-              <path
-                d="M11.3421 45.8935C13.0107 45.7743 14.6131 47.2367 14.5772 49.1191C14.5412 50.9864 13.1715 52.3485 11.344 52.3315C9.49374 52.3145 8.16945 51.0658 8.11648 49.1229C8.0654 47.2575 9.59779 45.8046 11.3421 45.8935ZM8.74268 49.0945C8.74268 50.5929 9.87779 51.7337 11.3591 51.728C12.7799 51.7223 13.9415 50.555 13.9869 49.1759C14.0323 47.8156 12.9748 46.4705 11.344 46.4346C9.88914 46.4024 8.74268 47.6075 8.74268 49.0945Z"
-                fill="black"
-              />
-              <path
-                d="M8.74414 49.096C8.74414 47.609 9.8906 46.4039 11.3454 46.4342C12.9781 46.4701 14.0338 47.8171 13.9884 49.1754C13.943 50.5546 12.7814 51.7219 11.3606 51.7276C9.87926 51.737 8.74414 50.5943 8.74414 49.096Z"
-                fill="#022345"
-              />
-            </svg>
+          {/* Logo & About */}
+          <div className="w-full md:w-[32%] text-right">
+            <img
+              src="./src/assets/images/upseeds-logo.png"
+              alt="Upseeds Logo"
+              className="w-[180px] filter brightness-0 invert mb-4 ml-auto drop-shadow-lg"
+            />
 
-            <p className="text-sm leading-6">
+            <p className="text-sm leading-7 text-gray-100">
               نحن شركة تقنية متخصصة في تطوير حلول ذكاء اصطناعي وتقنيات مبتكرة
-              تساعد الشركات على الأتمتة والنمو في عالم رقمي سريع التغير. نعمل مع
-              فريق خبراء لتقديم حلول مخصصة تضمن لك التميز والمنافسة.
+              تساعد الشركات على الأتمتة والنمو في عالم رقمي سريع التغير. نعمل
+              مع فريق خبراء لتقديم حلول مخصصة تضمن لك التميز والمنافسة.
             </p>
           </div>
         </div>
 
-        <div className="w-full mt-8 flex justify-center md:justify-end gap-3">
-          <div className="w-8 h-8 rounded-full bg-white text-[#011F41] flex items-center justify-center">
-            <i className="fa-brands fa-facebook-f"></i>
-          </div>
-          <div className="w-8 h-8 rounded-full bg-white text-[#011F41] flex items-center justify-center">
-            <i className="fa-brands fa-twitter"></i>
-          </div>
+        {/* Social Icons */}
+        <div className="w-full mt-10 flex justify-end gap-4">
+          {[
+            { icon: "fa-facebook-f", link: "#" },
+            { icon: "fa-twitter", link: "#" },
+            { icon: "fa-linkedin-in", link: "#" },
+            { icon: "fa-instagram", link: "#" },
+          ].map((social, i) => (
+            <a
+              key={i}
+              href={social.link}
+              className="w-10 h-10 rounded-full bg-white text-[#491C86] flex items-center justify-center hover:bg-[#EBDDF8] hover:scale-110 transition duration-200 shadow-md"
+            >
+              <i className={`fa-brands ${social.icon}`}></i>
+            </a>
+          ))}
+        </div>
+
+        {/* Bottom */}
+        <div className="text-center md:text-right text-xs text-gray-200 mt-8">
+          © 2025 جميع الحقوق محفوظة. تم التصميم والتطوير بواسطة{" "}
+          <span className="text-[#EBDDF8] font-medium">
+            فريق أبسيدز التقني
+          </span>
+          .
         </div>
       </div>
     </footer>

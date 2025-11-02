@@ -1,0 +1,28 @@
+/* Force everything to stay white */
+.swiper,
+.swiper-slide,
+.swiper-wrapper,
+.swiper-pagination,
+.swiper-pagination-bullet,
+.swiper-pagination-bullet-active,
+.card {
+  background: #ffffff !important;
+}
+
+/* Remove Flowbite card shadows and borders */
+.card,
+div[class*="Card"] {
+  background: #ffffff !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Purple pagination bullets */
+.swiper-pagination-bullet {
+  background: #ccc !important;
+  opacity: 1 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: #491C86 !important;
+}

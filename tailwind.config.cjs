@@ -1,11 +1,22 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  container: {
-    center: true,
-    padding: "1rem",
-  },
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    container: {
+      center: true,
+      padding: "1rem",
+    },
+    extend: {
+      keyframes: {
+        fadeIn: {
+          from: { opacity: "0", transform: "translateY(20px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+      },
+      animation: {
+        fadeIn: "fadeIn 1s ease-out both",
+      },
+    },
   },
   plugins: [require("flowbite/plugin")],
 };

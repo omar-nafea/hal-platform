@@ -1,14 +1,10 @@
 import React from "react";
 import contact from "../../assets/images/contact.png";
-import { Link } from "react-router-dom";
-import bottomDots from "../../assets/images/bottom-dots2.png";
-import topDots from "../../assets/images/top-dots.png";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import axios from "axios";
 
 export default function Contact() {
-  let contactSchema = yup.object().shape({
+  const contactSchema = yup.object().shape({
     name: yup
       .string()
       .required("الاسم مطلوب")
@@ -17,255 +13,219 @@ export default function Contact() {
     phone: yup
       .string()
       .required("رقم الهاتف مطلوب")
-      .matches(/^01[0125][0-9]{8}$/),
+      .matches(/^01[0125][0-9]{8}$/, "يرجى إدخال رقم هاتف صحيح"),
     service: yup
       .string()
       .required("يرجى اختيار الخدمة المطلوبة")
       .min(3, "يجب كتابة خدمة لا تقل عن 3 أحرف"),
     notes: yup
       .string()
-      .required("يرجى ادخال ملاحظات")
+      .required("يرجى إدخال ملاحظات")
       .min(3, "يجب كتابة ملاحظة لا تقل عن 3 أحرف")
       .max(200, "يجب أن تكون الملاحظة أقل من 200 حرف"),
     email: yup
       .string()
-      .required("البريد الالكترونى مطلوب ")
+      .required("البريد الإلكتروني مطلوب")
       .email("يرجى إدخال بريد إلكتروني صالح"),
   });
 
-  let user = {
-    name: "",
-    email: "",
-    phone: "",
-    service: "",
-    notes: "",
-  };
-  function submit(values) {
-    console.log(values);
-
-    // await axios.post("", values).then((res)=>{console.log(res);
-    // }).catch((error)=>{console.log(error);
-    // });
-  }
   const contactFormik = useFormik({
-    initialValues: user,
-    onSubmit: submit,
+    initialValues: {
+      name: "",
+      email: "",
+      phone: "",
+      service: "",
+      notes: "",
+    },
+    onSubmit: (values) => {
+      console.log(values);
+      // axios.post("/api/contact", values).then(...);
+    },
     validationSchema: contactSchema,
   });
+
   return (
-    <div>
-      <div className="py-16 bg-[#F6FBFD] relative">
-        <div className="max-w-7xl mx-auto px-6 ">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-6  p-8  text-right">
-              <form
-                className="flex flex-col"
-                onSubmit={contactFormik.handleSubmit}
-              >
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block mb-2 text-sm font-medium text-gray-900"
-                    >
-                      <i className="fa-solid mr-1 fa-star-of-life text-[5px] "></i>
-                      البريد الالكترونى
-                    </label>
-                    <input
-                      onChange={contactFormik.handleChange}
-                      onBlur={contactFormik.handleBlur}
-                      value={contactFormik.values.email}
-                      type="email"
-                      id="email"
-                      name="email"
-                      className="bg-gray-50 border text-right border-gray-300 text-gray-900 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      placeholder="name@example.com"
-                      required
-                    />
-                    {contactFormik.errors.email &&
-                    contactFormik.touched.email ? (
-                      <div
-                        className="p-4 mb-4 mt-2 rounded-full text-sm text-red-800  bg-red-50 dark:bg-gray-800 dark:text-red-400"
-                        role="alert"
-                      >
-                        {" "}
-                        {contactFormik.errors.email}
-                      </div>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block mb-2 text-sm font-medium text-gray-900"
-                    >
-                      <i className="fa-solid mr-1 fa-star-of-life text-[5px] "></i>
-                      الاسم
-                    </label>
-                    <input
-                      onChange={contactFormik.handleChange}
-                      onBlur={contactFormik.handleBlur}
-                      value={contactFormik.values.name}
-                      type="text"
-                      id="name"
-                      name="name"
-                      className="bg-gray-50 border text-right border-gray-300 text-gray-900 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      placeholder="اسم المشروع"
-                      required
-                    />{" "}
-                    {contactFormik.errors.name && contactFormik.touched.name ? (
-                      <div
-                        className="p-4 mb-4 mt-2 rounded-full  text-sm text-red-800  bg-red-50 dark:bg-gray-800 dark:text-red-400"
-                        role="alert"
-                      >
-                        {contactFormik.errors.name}
-                      </div>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5">
-                  <div>
-                    <label
-                      htmlFor="phone"
-                      className="block mb-2 text-sm font-medium text-gray-900"
-                    >
-                      <i className="fa-solid mr-1 fa-star-of-life text-[5px] "></i>
-                      رقم الهاتف
-                    </label>
-                    <input
-                      onChange={contactFormik.handleChange}
-                      onBlur={contactFormik.handleBlur}
-                      value={contactFormik.values.phone}
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      className="bg-gray-50 border text-right border-gray-300 text-gray-900 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      placeholder="ادخل رقم الهاتف"
-                      required
-                    />
-                    {contactFormik.errors.phone &&
-                    contactFormik.touched.phone ? (
-                      <div
-                        className="p-4 mb-4 mt-2 rounded-full text-sm text-red-800  bg-red-50 dark:bg-gray-800 dark:text-red-400"
-                        role="alert"
-                      >
-                        {" "}
-                        {contactFormik.errors.phone}
-                      </div>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="service"
-                      className="block mb-2 text-sm font-medium text-gray-900"
-                    >
-                      <i className="fa-solid mr-1 fa-star-of-life text-[5px] "></i>
-                      اختيار الخدمة
-                    </label>
-                    <input
-                      onChange={contactFormik.handleChange}
-                      onBlur={contactFormik.handleBlur}
-                      value={contactFormik.values.service}
-                      type="text"
-                      id="service"
-                      name="service"
-                      className="bg-gray-50 border text-right border-gray-300 text-gray-900 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      placeholder="حدد الخدمة"
-                      required
-                    />
-                    {contactFormik.errors.service &&
-                    contactFormik.touched.service ? (
-                      <div
-                        className="p-4 mb-4 mt-2 rounded-full text-sm text-red-800  bg-red-50 dark:bg-gray-800 dark:text-red-400"
-                        role="alert"
-                      >
-                        {" "}
-                        {contactFormik.errors.service}
-                      </div>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                </div>
-
-                <div className="mt-5">
+    <div className="py-16 bg-white relative">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          {/* ==== FORM ==== */}
+          <div className="lg:col-span-6 p-8 text-right">
+            <form
+              className="flex flex-col"
+              onSubmit={contactFormik.handleSubmit}
+            >
+              {/* Email + Name */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Email */}
+                <div>
                   <label
-                    htmlFor="message"
-                    className="block mb-2 text-sm font-medium text-gray-900"
+                    htmlFor="email"
+                    className="block mb-2 text-sm font-medium text-[#491C86]"
                   >
-                    <i className="fa-solid mr-1 fa-star-of-life text-[5px] "></i>
-                    ملاحظتك
+                    <i className="fa-solid mr-1 fa-star-of-life text-[5px] text-[#00B3A4]" />
+                    البريد الإلكتروني
                   </label>
-                  <textarea
-                    value={contactFormik.values.notes}
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="name@example.com"
                     onChange={contactFormik.handleChange}
                     onBlur={contactFormik.handleBlur}
-                    name="notes"
-                    id="notes"
-                    rows="4"
-                    className="bg-gray-50 border text-right border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-3 resize-none"
-                    placeholder="ادخل ملاحظتك "
-                    required
-                  ></textarea>
-                  {contactFormik.errors.notes && contactFormik.touched.notes ? (
-                    <div
-                      className="p-4 mb-4 mt-2 rounded-full text-sm text-red-800  bg-red-50 dark:bg-gray-800 dark:text-red-400"
-                      role="alert"
-                    >
-                      {" "}
-                      {contactFormik.errors.notes}
+                    value={contactFormik.values.email}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-[#00B3A4] focus:border-[#491C86] block w-full p-2.5 text-right"
+                  />
+                  {contactFormik.errors.email && contactFormik.touched.email && (
+                    <div className="p-3 mt-2 text-sm text-red-700 bg-red-100 rounded-full">
+                      {contactFormik.errors.email}
                     </div>
-                  ) : (
-                    ""
                   )}
                 </div>
 
-                <div className="flex items-center justify-center w-full mt-6">
-                  <button
-                    type="submit"
-                    className="btn text-center w-full flex items-center justify-center gap-2"
+                {/* Name */}
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="block mb-2 text-sm font-medium text-[#491C86]"
                   >
-                    <span className="w-8 h-8 flex items-center justify-center bg-main2 rounded-full main-text">
-                      <i className="fa-solid fa-arrow-left text-[#013366]"></i>
-                    </span>
-                    <span className="main-text">تواصل معنا</span>
-                  </button>
+                    <i className="fa-solid mr-1 fa-star-of-life text-[5px] text-[#00B3A4]" />
+                    الاسم
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="اسم المشروع"
+                    onChange={contactFormik.handleChange}
+                    onBlur={contactFormik.handleBlur}
+                    value={contactFormik.values.name}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-[#00B3A4] focus:border-[#491C86] block w-full p-2.5 text-right"
+                  />
+                  {contactFormik.errors.name && contactFormik.touched.name && (
+                    <div className="p-3 mt-2 text-sm text-red-700 bg-red-100 rounded-full">
+                      {contactFormik.errors.name}
+                    </div>
+                  )}
                 </div>
-              </form>
+              </div>
+
+              {/* Phone + Service */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5">
+                {/* Phone */}
+                <div>
+                  <label
+                    htmlFor="phone"
+                    className="block mb-2 text-sm font-medium text-[#491C86]"
+                  >
+                    <i className="fa-solid mr-1 fa-star-of-life text-[5px] text-[#00B3A4]" />
+                    رقم الهاتف
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="ادخل رقم الهاتف"
+                    onChange={contactFormik.handleChange}
+                    onBlur={contactFormik.handleBlur}
+                    value={contactFormik.values.phone}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-[#00B3A4] focus:border-[#491C86] block w-full p-2.5 text-right"
+                  />
+                  {contactFormik.errors.phone && contactFormik.touched.phone && (
+                    <div className="p-3 mt-2 text-sm text-red-700 bg-red-100 rounded-full">
+                      {contactFormik.errors.phone}
+                    </div>
+                  )}
+                </div>
+
+                {/* Service */}
+                <div>
+                  <label
+                    htmlFor="service"
+                    className="block mb-2 text-sm font-medium text-[#491C86]"
+                  >
+                    <i className="fa-solid mr-1 fa-star-of-life text-[5px] text-[#00B3A4]" />
+                    اختيار الخدمة
+                  </label>
+                  <input
+                    type="text"
+                    id="service"
+                    name="service"
+                    placeholder="حدد الخدمة"
+                    onChange={contactFormik.handleChange}
+                    onBlur={contactFormik.handleBlur}
+                    value={contactFormik.values.service}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-[#00B3A4] focus:border-[#491C86] block w-full p-2.5 text-right"
+                  />
+                  {contactFormik.errors.service &&
+                    contactFormik.touched.service && (
+                      <div className="p-3 mt-2 text-sm text-red-700 bg-red-100 rounded-full">
+                        {contactFormik.errors.service}
+                      </div>
+                    )}
+                </div>
+              </div>
+
+              {/* Notes */}
+              <div className="mt-5">
+                <label
+                  htmlFor="notes"
+                  className="block mb-2 text-sm font-medium text-[#491C86]"
+                >
+                  <i className="fa-solid mr-1 fa-star-of-life text-[5px] text-[#00B3A4]" />
+                  ملاحظتك
+                </label>
+                <textarea
+                  id="notes"
+                  name="notes"
+                  rows="4"
+                  placeholder="ادخل ملاحظتك"
+                  onChange={contactFormik.handleChange}
+                  onBlur={contactFormik.handleBlur}
+                  value={contactFormik.values.notes}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-[#00B3A4] focus:border-[#491C86] block w-full p-3 text-right resize-none"
+                />
+                {contactFormik.errors.notes && contactFormik.touched.notes && (
+                  <div className="p-3 mt-2 text-sm text-red-700 bg-red-100 rounded-full">
+                    {contactFormik.errors.notes}
+                  </div>
+                )}
+              </div>
+
+              {/* Submit Button */}
+              <div className="flex items-center justify-center w-full mt-6">
+                <button
+                  type="submit"
+                  className="bg-[#491C86] hover:bg-[#00B3A4] transition text-white font-semibold rounded-full px-6 py-3 flex items-center justify-center gap-3 w-full"
+                >
+                  <span className="w-8 h-8 flex items-center justify-center bg-white rounded-full text-[#491C86]">
+                    <i className="fa-solid fa-arrow-left"></i>
+                  </span>
+                  <span>تواصل معنا</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          {/* ==== IMAGE SIDE ==== */}
+          <div className="lg:col-span-6 flex flex-col items-center lg:items-end text-center lg:text-right gap-8">
+            <div>
+              <span className="block text-lg font-semibold text-[#00B3A4] mb-2">
+                &lt;تواصل معنا&gt;
+              </span>
+              <h2 className="text-2xl md:text-3xl font-bold leading-snug text-[#491C86]">
+                تواصل معانا لاكتشاف حلول{" "}
+                <span className="block text-[#00B3A4]">تقنية مبتكرة لعملك</span>
+              </h2>
             </div>
 
-            <div className="lg:col-span-6 flex flex-col items-center lg:items-end text-center lg:text-right gap-8">
-              <div>
-                <span className="block text-lg font-semibold mb-2">
-                  &lt;تواصل معنا&gt;
-                </span>
-                <h2 className="text-2xl md:text-3xl font-bold leading-snug">
-                  تواصل معانا لاكتشاف حلول{" "}
-                  <span className="block">تقنية مبتكرة لعملك</span>
-                </h2>
-              </div>
-
-              <div className="img-contact w-full max-w-md">
-                <img
-                  src={contact}
-                  alt="contact"
-                  className="w-full h-auto object-contain"
-                />
-              </div>
+            <div className="img-contact w-full max-w-md">
+              <img
+                src={contact}
+                alt="contact"
+                className="w-full h-auto object-contain"
+              />
             </div>
           </div>
-        </div>
-        <div className="absolute flex  bottom-0 right-0 w-full lg:w-[45%] pointer-events-none">
-          <img src={bottomDots} alt="dots" />
-        </div>
-        <div className="absolute top-0 left-0 w-full lg:w-[45%] pointer-events-none">
-          <img src={topDots} alt="dots" />
         </div>
       </div>
     </div>
